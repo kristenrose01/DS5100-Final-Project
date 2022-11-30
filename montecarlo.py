@@ -5,7 +5,7 @@ import random
 class Die:
    
     def __init__(self, faces):
-        
+
         if (faces.dtype() != '<U1') and (faces.dtype() != 'int64'):
             raise TypeError("Array must contain strings or numbers.")
  
@@ -29,22 +29,29 @@ class Die:
         elif (type(new_weight) != float):
             raise TypeError("New weight is not valid.")
 
-    def roll_die(self, number_times=1):
+    def roll_die(self, number_rolls=1):
        
-        self.outcomes = random.choices(self._die["faces"], weights, k=number_times)
-        return self.outcomes
+        return random.choices(self._die["faces"], weights, k=number_rolls)
         
     def show_die(self):
         
         return self._die
     
-
 class Game:
+    
     def __init__(die_list):
-        pass
+        self.die_list = die_list
     
     def play_game(number_rolls):
-        pass
+        # table with rows showing each roll number and columns showing each die
+        # each cell will show the face of the specific die for the specific roll
+        
+        result = pd.DataFrame()
+        
+        for i in die_list:
+            result[str(i)] = Die.roll_die(self, number_rolls)
+            
+            
 
     def show_results(form):
         pass
