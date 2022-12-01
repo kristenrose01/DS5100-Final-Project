@@ -6,7 +6,7 @@ class Die:
    
     def __init__(self, faces):
 
-        if (faces.dtype() != '<U1') and (faces.dtype() != 'int64'):
+        if (faces.dtype != '<U1') and (faces.dtype != 'int64'):
             raise TypeError("Array must contain strings or numbers.")
  
         if len(faces) != len(np.unique(faces)):
@@ -28,10 +28,13 @@ class Die:
             float(new_weight)
         elif (type(new_weight) != float):
             raise TypeError("New weight is not valid.")
+            
+        index = self._die[self._die['faces']==face_value].index.values
+        self._die.loc[index, 'weights'] = new_weight
 
     def roll_die(self, number_rolls=1):
        
-        return random.choices(self._die["faces"], weights, k=number_rolls)
+        return random.choices(self._die["faces"], self._die['weights'], k=number_rolls)
         
     def show_die(self):
         
@@ -39,26 +42,24 @@ class Die:
     
 class Game:
     
-    def __init__(die_list):
+    def __init__(self, die_list):
         self.die_list = die_list
     
-    def play_game(number_rolls):
-        # table with rows showing each roll number and columns showing each die
-        # each cell will show the face of the specific die for the specific roll
-        
-        result = pd.DataFrame()
-        
-        for i in die_list:
-            result[str(i)] = Die.roll_die(self, number_rolls)
-            
-            
+    def play_game(self, number_rolls):
 
-    def show_results(form):
+        self._result = pd.DataFrame()
+        self._result.index.names = ['Roll']
+        
+        for i in range(0, len(self.die_list)):
+            die = self.die_list[i]
+            self._result[i] = die.roll_die(number_rolls)
+
+    def show_results(self, form):
         pass
     
 
 class Analyzer:
-    def __init__(game):
+    def __init__(self,game):
         pass
     
     def face_counts():
