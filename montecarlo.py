@@ -6,7 +6,7 @@ class Die:
    
     def __init__(self, faces):
 
-        if (faces.dtype != '<U1') and (faces.dtype != 'int64'):
+        if (faces.dtype != '<U1') and (faces.dtype != 'int64') and (faces.dtype != 'float64'):
             raise TypeError("Array must contain strings or numbers.")
  
         if len(faces) != len(np.unique(faces)):
@@ -43,8 +43,13 @@ class Die:
 class Game:
     
     def __init__(self, die_list):
-        self.die_list = die_list
-    
+        self.die_list = die_list   
+                    
+        for i in range(0, len(self.die_list)):
+            if sorted(self.die_list[i]._die['faces'].tolist()) != sorted(self.die_list[0]._die['faces'].tolist()):
+                raise ValueError("Die objects do not have same number of sides and set of faces.")
+            
+            
     def play_game(self, number_rolls):
 
         self._result = pd.DataFrame()
@@ -53,19 +58,40 @@ class Game:
         for i in range(0, len(self.die_list)):
             die = self.die_list[i]
             self._result[i] = die.roll_die(number_rolls)
+            
+        for j in range(0, len(self._result)):
+            label = "{number}".format(number = (j+1))
+            self._result = self._result.rename(index = {j: label})
 
-    def show_results(self, form):
-        pass
-    
+    def show_results(self, form='wide'):
+        
+        if form=='wide': 
+            return self._result
+        elif form=='narrow':
+            return self._result.stack()
+        else:
+            raise ValueError("Form is not valid.")
 
 class Analyzer:
-    def __init__(self,game):
-        pass
+
+    face_count = pd.DataFrame()
     
-    def face_counts():
-        pass
+    def __init__(self,game):
+        
+        self._game = game
+        
+        #for i in range (0, len(game.die_list)):
+            #print(f"The data type of the faces of die {i} is", game.die_list[i]._die['faces'].dtype)
+    
+    def face_counts(self):
+        
+        Analyzer.face_count = self._game._result.apply(pd.Series.value_counts, axis=1).fillna(0).astype(int).rename_axis(columns = 'Face')
+
+        return Analyzer.face_count
     
     def jackpot():
+        
+        
         pass
     
     def combo():
