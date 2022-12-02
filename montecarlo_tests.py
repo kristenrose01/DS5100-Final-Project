@@ -111,10 +111,23 @@ class AnalyzerTestCase(unittest.TestCase):
         game1.play_game(4)
         analyzer1 = Analyzer(game1)
         analyzer1.face_counts()
-        actual = analyzer1.face_count.values.sum()
+        actual = analyzer1.face_counts.values.sum()
         expected = 8
         
         self.assertEqual(actual, expected, "Face counts are not displayed accurately.")
+        
+    def test_13_jackpot(self):
+        die1 = Die(np.array([1,2,3,4,5,6]))
+        die2 = Die(np.array([1,2,3,4,5,6]))
+        
+        game1 = Game([die1, die2])
+        game1.play_game(4)
+        analyzer1 = Analyzer(game1)
+        
+        actual = analyzer1.jackpot()
+        expected = len(analyzer1.face_counts[(analyzer1.face_counts == 2).any(axis=1)])
+        
+        self.assertEqual(actual, expected, "Jackpot number is accurate.")
     
         
         

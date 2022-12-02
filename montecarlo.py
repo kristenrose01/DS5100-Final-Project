@@ -74,7 +74,8 @@ class Game:
 
 class Analyzer:
 
-    face_count = pd.DataFrame()
+    face_counts = pd.DataFrame()
+    jackpot = pd.DataFrame()
     
     def __init__(self,game):
         
@@ -85,14 +86,28 @@ class Analyzer:
     
     def face_counts(self):
         
-        Analyzer.face_count = self._game._result.apply(pd.Series.value_counts, axis=1).fillna(0).astype(int).rename_axis(columns = 'Face')
+        Analyzer.face_counts = self._game._result.apply(pd.Series.value_counts, axis=1).fillna(0).astype(int).rename_axis(columns = 'Face')
 
-        return Analyzer.face_count
+        return Analyzer.face_counts
     
-    def jackpot():
+    def jackpot(self):
         
+        jpcol = pd.Series(dtype=int)
         
-        pass
+        jackpot_num = len(self.face_counts[(self.face_counts == len(self._game.die_list)).any(axis=1)])
+        
+        jpcol=pd.Series(np.where((self.face_counts == len(self._game.die_list)).any(axis=1), 1, 0))
+        jpdf = pd.DataFrame(jpcol)
+
+        for j in range(0, len(jpcol)):
+            label = "{number}".format(number = (j+1))
+            jpdf = jpdf.rename(index = {j: label})
+            
+        jpdf = jpdf.rename(columns = {0: 'Jackpot'})
+        
+        self.jackpot = self.face_counts.join(jpdf)
+            
+        return jackpot_num
     
     def combo():
         pass
