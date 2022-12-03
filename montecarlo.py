@@ -21,7 +21,7 @@ class Die:
 
     def change_weight(self, face_value, new_weight):
         
-        if face_value not in self._die["faces"]:
+        if face_value not in list(self._die["faces"]):
             raise ValueError("Face is not valid.")
             
         if type(new_weight) == int:
@@ -87,27 +87,41 @@ class Analyzer:
     def face_counts(self):
         
         Analyzer.face_counts = self._game._result.apply(pd.Series.value_counts, axis=1).fillna(0).astype(int).rename_axis(columns = 'Face')
-
-        return Analyzer.face_counts
     
     def jackpot(self):
         
-        jpcol = pd.Series(dtype=int)
-        
-        jackpot_num = len(self.face_counts[(self.face_counts == len(self._game.die_list)).any(axis=1)])
-        
-        jpcol=pd.Series(np.where((self.face_counts == len(self._game.die_list)).any(axis=1), 1, 0))
-        jpdf = pd.DataFrame(jpcol)
-
-        for j in range(0, len(jpcol)):
-            label = "{number}".format(number = (j+1))
-            jpdf = jpdf.rename(index = {j: label})
-            
-        jpdf = jpdf.rename(columns = {0: 'Jackpot'})
-        
-        self.jackpot = self.face_counts.join(jpdf)
-            
+        self.jackpot = self._game._result[self._game._result.nunique(axis=1) == 1]
+        jackpot_num = len(self.jackpot)
+     
         return jackpot_num
     
-    def combo():
-        pass
+    #def combo(self):
+        
+        #df = self._game._result.apply(sorted, axis=1).value_counts().to_frame('n').sort_index()
+        #df = df.reset_index()
+        
+        #lst = []
+        #for i in df['index'][1]:
+            #lst.append({i}, )
+        #lst = np.asarray(lst)    
+            
+        #self.combo = pd.DataFrame(df['index'].to_list(), columns=[1,2])
+        #counts = df.n.values
+        #self.combo['n'] = counts
+        #self.combo = self.combo.set_index([])
+        
+        self.combo = self._game._result.loc[:, [0, 1]].drop_duplicates().values 
+        
+        #num_combos = len(self.combo)
+        #message = f"There were {num_combos} distinct combinations of faces rolled."
+        
+        #return message
+    
+    def combo(self):
+        
+        self.combo = self._game._result.apply(lambda x: pd.Series(x).sort_values(), axis=1).value_counts().to_frame('n').sort_index()
+        num_combos = len(self.combo)
+        message = f"There were {num_combos} combinations of faces rolled."
+        
+        return message
+        
