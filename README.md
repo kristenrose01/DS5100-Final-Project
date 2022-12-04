@@ -8,49 +8,46 @@ Metadata
 Synopsis
 ------
 
-## Installing
+### Installing
 
 
-## Importing
+### Importing
 
 
-## Creating dice objects
+### Creating dice objects
 
 ```
 die1 = Die(np.array([1,2,3,4,5,6]))
 die2 = Die(np.array([1,2,3,4,5,6]))
 fair_coin = Die(np.array(['H','T']))
-
 ```
 
-## Playing games
+### Playing games
 
 ```
 die_list = [die1, die2]
 game1 = Game(die_list)
 game1.play_game(1000)
-
 ```
 
-## Analyzing games
+### Analyzing games
 
 ```
 game1_analysis = Analyze(game1)
 game1_analysis.facecount()
 game1_analysis.jackpot()
-
 ```
 
 API Description
 ------
 
-## Classes
+### Classes
 
-### Die
+#### Die
      
 A class to build, roll, and show a die.
     
-#### Methods (with docstrings)
+##### Methods (with docstrings)
 
     change_weight(face_value, new_weight):
                 
@@ -98,11 +95,11 @@ A class to build, roll, and show a die.
         
         """
         
-### Game
+#### Game
 
 A class to conduct a game of rolling one or more dice of the same kind one or more times.
     
-#### Methods (with docstrings)
+##### Methods (with docstrings)
     
     play_game(number_rolls):
         
@@ -134,11 +131,11 @@ A class to conduct a game of rolling one or more dice of the same kind one or mo
         
         """
         
-### Analyzer
+#### Analyzer
 
 A class to analyze results and compute descriptive properties about a single game.
      
-#### Attributes
+##### Attributes
 
     face_counts: dataframe
         number of times a given face appeared in each roll
@@ -149,7 +146,7 @@ A class to analyze results and compute descriptive properties about a single gam
     combo: dataframe
         combination types of faces that were rolled and their counts
             
-#### Methods (with docstrings)
+##### Methods (with docstrings)
     
     face_counts():
         
