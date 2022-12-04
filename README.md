@@ -8,13 +8,38 @@ Metadata
 Synopsis
 ------
 
+## Installing
 
-Show simple demo code of how the classes are used, i.e.
-installing
-importing
-Creating dice objects
-Playing games
-Analyzing games
+
+## Importing
+
+
+## Creating dice objects
+
+```
+die1 = Die(np.array([1,2,3,4,5,6]))
+die2 = Die(np.array([1,2,3,4,5,6]))
+fair_coin = Die(np.array(['H','T']))
+
+```
+
+## Playing games
+
+```
+die_list = [die1, die2]
+game1 = Game(die_list)
+game1.play_game(1000)
+
+```
+
+## Analyzing games
+
+```
+game1_analysis = Analyze(game1)
+game1_analysis.facecount()
+game1_analysis.jackpot()
+
+```
 
 API Description
 ------
