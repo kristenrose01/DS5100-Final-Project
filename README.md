@@ -8,6 +8,7 @@ Metadata
 Synopsis
 ------
 
+
 Show simple demo code of how the classes are used, i.e.
 installing
 importing
@@ -18,13 +19,14 @@ Analyzing games
 API Description
 ------
 
-Die:
+## Classes
+
+### Die
      
-    A class to build, roll, and show a die.
+A class to build, roll, and show a die.
     
-    ---- 
-    Methods
-    
+#### Methods (with docstrings)
+
     change_weight(face_value, new_weight):
                 
         """
@@ -71,13 +73,11 @@ Die:
         
         """
         
-Game:
+### Game
 
-    A class to conduct a game of rolling one or more dice of the same kind one or more times.
+A class to conduct a game of rolling one or more dice of the same kind one or more times.
     
-    ----
-    
-    Methods
+#### Methods (with docstrings)
     
     play_game(number_rolls):
         
@@ -109,13 +109,11 @@ Game:
         
         """
         
-Analyzer:
+### Analyzer
 
-    A class to analyze results and compute descriptive properties about a single game.
-    
-    ---- 
-    
-    Attributes
+A class to analyze results and compute descriptive properties about a single game.
+     
+#### Attributes
 
     face_counts: dataframe
         number of times a given face appeared in each roll
@@ -126,9 +124,7 @@ Analyzer:
     combo: dataframe
         combination types of faces that were rolled and their counts
             
-    ---- 
-    
-    Methods
+#### Methods (with docstrings)
     
     face_counts():
         
