@@ -175,6 +175,7 @@ class Game:
         for j in range(0, len(self._result)):
             label = "{number}".format(number = (j+1))
             self._result = self._result.rename(index = {j: label})
+        
 
     def show_results(self, form='wide'):
         
@@ -233,8 +234,6 @@ class Analyzer:
         Used to compute the distinct combinations of faces rolled, along with their counts.
         
     """    
-    face_counts = pd.DataFrame()
-    jackpot = pd.DataFrame()
     
     def __init__(self,game):
         

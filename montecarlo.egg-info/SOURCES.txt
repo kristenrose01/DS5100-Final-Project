@@ -1,4 +1,5 @@
 README.md
+setup.py
 montecarlo/__init__.py
 montecarlo/montecarlo.py
 montecarlo.egg-info/PKG-INFO
