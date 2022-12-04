@@ -215,6 +215,9 @@ class Analyzer:
         
     combo: dataframe
         combination types of faces that were rolled and their counts
+        
+    permutations: int
+        number of sequence types rolled
             
     ---- 
     
@@ -249,6 +252,8 @@ class Analyzer:
         """
         
         self._game = game
+        
+        self.permutation = len(self._game._result.apply(lambda x: pd.Series(x).sort_values(), axis=1).value_counts().to_frame('n').sort_index())
     
     def face_counts(self):
         

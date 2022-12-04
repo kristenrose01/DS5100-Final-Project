@@ -8,11 +8,22 @@ Metadata
 Synopsis
 ------
 
-### Installing
+### Installing from command line
 
+```
+!pip install -e .
+```
 
 ### Importing
 
+```
+from montecarlo.montecarlo import Die
+from montecarlo.montecarlo import Game
+from montecarlo.montecarlo import Analyzer
+import numpy as np
+import pandas as pd
+import random
+```
 
 ### Creating dice objects
 
@@ -145,6 +156,9 @@ A class to analyze results and compute descriptive properties about a single gam
         
     combo: dataframe
         combination types of faces that were rolled and their counts
+        
+    permutations: int
+        number of sequence types rolled
             
 ##### Methods (with docstrings)
     
