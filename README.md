@@ -173,7 +173,7 @@ A class to analyze results and compute descriptive properties about a single gam
             None
             
         Returns
-            None
+            Dataframe of the number of times a given face appeared in each roll
         
         """
         
@@ -203,7 +203,7 @@ A class to analyze results and compute descriptive properties about a single gam
             None
             
         Returns
-            None
+            Dataframe of the distinct combinations of faces rolled, along with their counts
         
         """
 

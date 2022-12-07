@@ -321,6 +321,7 @@ class AnalyzerTestCase(unittest.TestCase):
         die2 = Die(np.array([1,2,3,4,5,6]))
         
         game1 = Game([die1, die2])
+        game1.play_game(4)
         analyzer1 = Analyzer(game1)
         
         self.assertTrue(len(analyzer1._game.die_list) == 2, "Analyzer not initialized correctly.")

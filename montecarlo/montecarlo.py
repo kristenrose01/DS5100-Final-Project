@@ -253,6 +253,7 @@ class Analyzer:
         self._game = game
         
         self.permutation = len(self._game._result.apply(lambda x: pd.Series(x).sort_values(), axis=1).value_counts().to_frame('n').sort_index())
+        
     
     def face_counts(self):
         
@@ -265,11 +266,12 @@ class Analyzer:
             None
             
         Returns
-            None
+            Dataframe of the number of times a given face appeared in each roll
         
         """
         
         Analyzer.face_counts = self._game._result.apply(pd.Series.value_counts, axis=1).fillna(0).astype(int).rename_axis(columns = 'Face')
+        return Analyzer.face_counts
     
     def jackpot(self):
                 
@@ -302,11 +304,12 @@ class Analyzer:
             None
             
         Returns
-            None
+            Dataframe of the distinct combinations of faces rolled, along with their counts
         
         """
         
         self.combo = self._game._result.apply(lambda x: pd.Series(x).sort_values(), axis=1).value_counts().to_frame('n').sort_index()
     
+        return self.combo
 
     
